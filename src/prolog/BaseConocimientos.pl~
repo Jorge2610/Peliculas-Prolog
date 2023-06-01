@@ -8,8 +8,20 @@ pelicula('El padrino',['Drama','Crimen'],['177','R','Don Vito Corleone es el res
 
 pelicula('Batman el caballero de la noche',['Acción','Crimen','Drama'],['152','PG-13','Con la ayuda del teniente Jim Gordon y del Fiscal del Distrito Harvey Dent, Batman mantiene a raya el crimen organizado en Gotham. Todo cambia cuando aparece el Joker, un nuevo criminal que desencadena el caos y tiene aterrados a los ciudadanos.'],['Christian Bale','Michael Caine','Heath Ledger']).
 
-recomendar_pelicula(X,Y,Z,A,GU,AU):-pelicula(X,Y,Z,A),pelicula_por_genero(X,GU,AP),pelicula_por_actor(AP,AU).
+pelicula('La lista de Schindler',['Cine bélico','Cine biográfico','Drama'],['195','S/D','El empresario alemán Oskar Schindler, miembro del Partido Nazi, pone en marcha un elaborado, costoso y arriesgado plan para salvar a más de mil judíos del Holocausto.'],['Liam Neeson','Ralph Fiennes','Ben Kingsley']).
 
+pelicula('El señor de los anillos El retorno del rey',['Aventuras','Fantasía épica'],['263','PG-13','La batalla por la Tierra Media ha empezado. Las fuerzas de Saruman han sido destruidas y por primera vez parece que hay una pequeña esperanza. Sin embargo, el poder de Sauron crece y su interés se centra en Gondor, el último reducto de los hombres, cuyo heredero es Aragorn. Mientras, Frodo y Sam, guiados por Gollum, siguen su peligrosa misión a través de Mordor para destruir el anillo.'],['Elijah Wood','Ian McKellen','Liv Tyler']).
+
+pelicula('Pulp Fiction',['Comedia negra','Crimen'],['154','R','La vida de un boxeador, dos sicarios, la esposa de un gánster y dos bandidos se entrelaza en una historia de violencia y redención.'],['John Travolta','Samuel L. Jackson','Uma Thurman']).
+
+pelicula('El señor de los anillos La comunidad del anillo',['Aventuras','Fantasía épica'],['228','PG-13','En la Tierra Media, el Señor Oscuro Sauron forjó los Grandes Anillos del Poder y creó uno con el poder de esclavizar a toda la Tierra Media. Frodo Bolsón es un hobbit al que su tío Bilbo hace portador del poderoso Anillo Único con la misión de destruirlo. Acompañado de sus amigos, Frodo emprende un viaje hacia Mordor, el único lugar donde el anillo puede ser destruido. Sin embargo, Sauron ordena la persecución del grupo para recuperar el anillo y acabar con la Tierra Media.'],['Elijah Wood','Ian McKellen','Liv Tyler']).
+
+pelicula('Forrest Gump',['Comedia','Drama'],['142','S/D','Sentado en un banco en Savannah, Georgia, Forrest Gump espera al autobús. Mientras éste tarda en llegar, el joven cuenta su vida a las personas que se sientan a esperar con él. Aunque sufre un pequeño retraso mental, esto no le impide hacer cosas maravillosas. Sin entender del todo lo que sucede a su alrededor, Forrest toma partido en los eventos más importantes de la historia de los Estados Unidos.'],['Tom Hanks','Robin Wright','Gary Sinise']).
+
+recomendar_pelicula(X,Y,Z,A,GU,AU):-pelicula(X,Y,Z,A),pelicula_por_genero(X,GU,AP),pelicula_por_actor(AP,AU).
+recomendar_por_genero(X,Y,Z,A,GU):-pelicula(X,Y,Z,A),pelicula_por_genero(X,GU,_).
+recomendar_por_actor(X,Y,Z,A,AU):-pelicula(X,Y,Z,A),pelicula_por_actor(A,AU)
+.
 pelicula_por_genero(X,Y,A):-pelicula(X,Z,_,A),buscar_genero_lista(Y,Z).
 
 buscar_genero_lista([H|T],Z):-buscar_genero(H,Z);buscar_genero_lista(T,Z).
@@ -19,3 +31,5 @@ buscar_genero(X,[H|T]):-X==H;buscar_genero(X,T).
 pelicula_por_actor([H|T],AU):-buscar_actor(H,AU);pelicula_por_actor(T,AU).
 
 buscar_actor(X,[H|T]):-X==H;buscar_actor(X,T).
+
+

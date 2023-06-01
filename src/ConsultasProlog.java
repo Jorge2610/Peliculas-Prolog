@@ -47,6 +47,74 @@ public class ConsultasProlog {
         return peliculas;
     }
 
+    public Pelicula[] recomendarPorGenero(String[] generos){
+        Variable X = new Variable("X");
+        Variable Y = new Variable("Y");
+        Variable Z = new Variable("Z");
+        Variable A = new Variable("A");
+        Query q4 = new Query(
+                "recomendar_por_genero",
+                new Term[] { X, Y, Z, A, Term.stringArrayToList(generos) });
+
+        Map<String, Term>[] solutions = q4.allSolutions();
+        HashSet<String> titulos = new HashSet<>();
+        Pelicula[] peliculasDup = new Pelicula[solutions.length];
+        int contadorUnicos = 0;
+        int indiceUnicos = 0;
+        for (int i = 0; i < solutions.length; i++) {
+            if (titulos.add(getTitulo(solutions[i]))) {
+                peliculasDup[indiceUnicos] = new Pelicula(
+                        getTitulo(solutions[i]),
+                        getCategoria(solutions[i]),
+                        getDuracion(solutions[i]),
+                        getGeneros(solutions[i]),
+                        getActores(solutions[i]),
+                        getSinopsis(solutions[i]));
+                contadorUnicos++;
+                indiceUnicos++;
+            }
+        }
+        Pelicula[] peliculas = new Pelicula[contadorUnicos];
+        for (int i = 0; i < contadorUnicos; i++) {
+            peliculas[i] = peliculasDup[i];
+        }
+        return peliculas;
+    }
+
+    public Pelicula[] recomendarPorActor(String[] actores){
+        Variable X = new Variable("X");
+        Variable Y = new Variable("Y");
+        Variable Z = new Variable("Z");
+        Variable A = new Variable("A");
+        Query q4 = new Query(
+                "recomendar_por_actor",
+                new Term[] { X, Y, Z, A, Term.stringArrayToList(actores) });
+
+        Map<String, Term>[] solutions = q4.allSolutions();
+        HashSet<String> titulos = new HashSet<>();
+        Pelicula[] peliculasDup = new Pelicula[solutions.length];
+        int contadorUnicos = 0;
+        int indiceUnicos = 0;
+        for (int i = 0; i < solutions.length; i++) {
+            if (titulos.add(getTitulo(solutions[i]))) {
+                peliculasDup[indiceUnicos] = new Pelicula(
+                        getTitulo(solutions[i]),
+                        getCategoria(solutions[i]),
+                        getDuracion(solutions[i]),
+                        getGeneros(solutions[i]),
+                        getActores(solutions[i]),
+                        getSinopsis(solutions[i]));
+                contadorUnicos++;
+                indiceUnicos++;
+            }
+        }
+        Pelicula[] peliculas = new Pelicula[contadorUnicos];
+        for (int i = 0; i < contadorUnicos; i++) {
+            peliculas[i] = peliculasDup[i];
+        }
+        return peliculas;
+    }
+
     private String getTitulo(Map<String, Term> resp) {
         return resp.get("X").toString().replace("'", "");
     }

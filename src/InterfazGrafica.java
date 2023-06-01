@@ -113,7 +113,12 @@ public class InterfazGrafica extends JFrame {
                 { "Drama", false },
                 { "Crimen", false },
                 { "Cine bélico", false },
-                { "Cine biográfico", false } };
+                { "Cine biográfico", false },
+                { "Aventuras", false },
+                { "Fantasía épica", false },
+                { "Comedia negra", false },
+                { "Comedia", false },
+                { "Suspenso", false } };
         ordenarDatos(datos);
         generos = new DefaultTableModel(datos, nombresColumnas) {
             @Override
@@ -192,11 +197,17 @@ public class InterfazGrafica extends JFrame {
         siguiente.setBounds(659, 25, 150, 50);
         siguiente.addActionListener(e -> {
             guardarActores();
-            if (listaGeneros.length == 0 || listaActores.length == 0) {
+            if (listaGeneros.length == 0 && listaActores.length == 0) {
                 JOptionPane.showMessageDialog(this, "Por favor seleccione informacion valida.", "Aviso",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                pelicula = consultor.recomendarPelicula(listaGeneros, listaActores);
+                if(listaActores.length == 0){
+                    pelicula = consultor.recomendarPorGenero(listaGeneros);
+                }else if(listaGeneros.length == 0){
+                    pelicula = consultor.recomendarPorActor(listaActores);   
+                }else{
+                    pelicula = consultor.recomendarPelicula(listaGeneros, listaActores);
+                }
                 if (pelicula.length == 0) {
                     JOptionPane.showMessageDialog(this, "No hay recomendaciones, pruebe con otros datos.", "Aviso",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -236,7 +247,19 @@ public class InterfazGrafica extends JFrame {
                 { "Heath Ledger", false },
                 { "Liam Neeson", false },
                 { "Ralph Fiennes", false },
-                { "Ben Kingsley", false } };
+                { "Ben Kingsley", false },
+                { "Elijah Wood", false },
+                { "Ian McKellen", false },
+                { "John Travolta", false },
+                { "Liv Tyler", false },
+                { "Samuel L. Jackson", false },
+                { "Uma Thurman", false },
+                { "Tom Hanks", false },
+                { "Robin Wright", false },
+                { "Gary Sinise", false },
+                { "Edward Norton", false },
+                { "Brad Pitt", false },
+                { "Helena Bonham Carter", false } };
         ordenarDatos(datos);
         actores = new DefaultTableModel(datos, nombresColumnas) {
             @Override
